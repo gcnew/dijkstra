@@ -1,0 +1,39 @@
+{
+    "name": "dijkstra",
+    "version": "0.1.0",
+    "license": "MIT",
+
+    "description": "A TypeScript implementation of Dijkstra's Shortest Path algorithm",
+
+    "keywords": [ "dijkstra", "shortest path", "algorithm", "typescript" ],
+
+    "author": {
+        "name": "gcnew"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gcnew/dijkstra.git"
+    },
+
+    "files": [
+        "src", "tsconfig.json"
+    ],
+
+    "devDependencies": {
+        "cli-script-utils": "",
+        "pietr": "",
+
+        "source-map-support": "",
+        "chai": "",
+
+        "@types/chai": ""
+    },
+
+    "scripts": {
+        "test-no-build": "pietr --require=source-map-support/register --pattern='built/**/*.js'",
+        "test":          "tsc && npm run test-no-build"
+    },
+
+    "private": true
+}
