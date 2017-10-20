@@ -3,7 +3,7 @@ import { test } from 'pietr'
 import { assert } from 'chai'
 
 import { toComparator, invert } from '../src/ordering'
-import { BinHeapArray, mkHeap, isEmpty, push, pop, heapify } from '../src/bin_heap_array'
+import { BinHeap, mkHeap, singleton, isEmpty, push, pop, heapify } from '../src/bin_heap'
 
 const numComp = toComparator(numOrdCmp);
 
@@ -12,7 +12,7 @@ function numOrdCmp(x: number, y: number) {
            x > y ? 'GT' : 'EQ';
 }
 
-function heapSort(heap: BinHeapArray<number>) {
+function heapSort(heap: BinHeap<number>) {
     const retval = [];
 
     while (!isEmpty(heap)) {
@@ -49,7 +49,7 @@ test('Push / Pop', () => {
         const arr = mkRandomArray(10 ** i);
         const sorted = arr.slice().sort(numComp);
 
-        const heap = mkHeap(arr[0], numOrdCmp);
+        const heap = singleton(arr[0], numOrdCmp);
         for (let k = 1; k < arr.length; ++k) {
             push(arr[k], heap);
         }
@@ -70,8 +70,8 @@ test('Push / Pop - max heap', () => {
         const arr = mkRandomArray(10 ** i);
         const sorted = arr.slice().sort(numCmp);
 
-        const heap = mkHeap(arr[0], ordCmp);
-        for (let k = 1; k < arr.length; ++k) {
+        const heap = mkHeap(ordCmp);
+        for (let k = 0; k < arr.length; ++k) {
             push(arr[k], heap);
         }
 

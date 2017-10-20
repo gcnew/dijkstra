@@ -2,14 +2,14 @@
 import { OrdComparator } from './ordering'
 
 export {
-    BinHeapArray,
+    BinHeap,
 
-    mkHeap, isEmpty, peek, pop, push, heapify
+    mkHeap, singleton, isEmpty, peek, pop, push, heapify
 }
 
 /* Types */
 
-type BinHeapArray<T> = {
+type BinHeap<T> = {
     comparator: OrdComparator<T>,
     data: T[]
 }
@@ -17,15 +17,15 @@ type BinHeapArray<T> = {
 
 /* API Functions */
 
-function isEmpty<T>(heap: BinHeapArray<T>): boolean {
+function isEmpty<T>(heap: BinHeap<T>): boolean {
     return heap.data.length === 0;
 }
 
-function peek<T>(heap: BinHeapArray<T>): T | undefined {
+function peek<T>(heap: BinHeap<T>): T | undefined {
     return heap.data[0];
 }
 
-function pop<T>(heap: BinHeapArray<T>): T | undefined {
+function pop<T>(heap: BinHeap<T>): T | undefined {
     if (heap.data.length <= 1) {
         return heap.data.pop();
     }
@@ -37,12 +37,12 @@ function pop<T>(heap: BinHeapArray<T>): T | undefined {
     return retval;
 }
 
-function push<T>(item: T, heap: BinHeapArray<T>) {
+function push<T>(item: T, heap: BinHeap<T>) {
     heap.data.push(item);
     siftUp(heap);
 }
 
-function heapify<T>(items: T[], comparator: OrdComparator<T>): BinHeapArray<T> {
+function heapify<T>(items: T[], comparator: OrdComparator<T>): BinHeap<T> {
     const heap = { comparator, data: items.slice() };
 
     // Sift all non-leaf nodes.
@@ -64,7 +64,7 @@ function heapify<T>(items: T[], comparator: OrdComparator<T>): BinHeapArray<T> {
 
 /* Private Implementation Functions */
 
-function siftDown<T>(heap: BinHeapArray<T>, idx = 0) {
+function siftDown<T>(heap: BinHeap<T>, idx = 0) {
     const { comparator, data } = heap;
 
     while (true) {
@@ -87,7 +87,7 @@ function siftDown<T>(heap: BinHeapArray<T>, idx = 0) {
     }
 }
 
-function siftUp<T>(heap: BinHeapArray<T>) {
+function siftUp<T>(heap: BinHeap<T>) {
     const { comparator, data } = heap;
 
     let idx = heap.data.length - 1;
@@ -127,9 +127,10 @@ function swap<T>(idx1: number, idx2: number, arr: T[]) {
 
 /* Constructors */
 
-function mkHeap<T>(item: T, comparator: OrdComparator<T>): BinHeapArray<T> {
-    return {
-        comparator,
-        data: [ item ]
-    };
+function mkHeap<T>(comparator: OrdComparator<T>): BinHeap<T> {
+    return { comparator, data: [] };
+}
+
+function singleton<T>(item: T, comparator: OrdComparator<T>): BinHeap<T> {
+    return { comparator, data: [ item ] };
 }

@@ -1,6 +1,6 @@
 
 import { naturalOrdComparator } from './ordering'
-import { mkHeap, push, pop, isEmpty } from './bin_heap_array'
+import { singleton, push, pop, isEmpty } from './bin_heap'
 export { Graph, shortestPath }
 
 type Map<T> = { [key: string]: T | undefined }
@@ -9,7 +9,7 @@ type Graph = Map<{ [neighbour: string]: number }>
 
 
 function shortestPath(graph: Graph, start: string, end: string): [ string[], number ] | undefined {
-    const costsHeap = mkHeap(
+    const costsHeap = singleton(
         { edge: start, cost: 0 },
         (x, y) => naturalOrdComparator(x.cost, y.cost)
     );
